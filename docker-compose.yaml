@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: dbname
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend_network
+
+  backend: 
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://user:pass@postgres/dbname
+    depends_on:
+      - postgres
+      - alembic
+
+  alembic:
+    build:
+      context: .
+      dockerfile: ./alembic/Dockerfile
+    command: alembic upgrade head
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://user:pass@postgres/dbname
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

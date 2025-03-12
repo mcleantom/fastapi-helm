@@ -1,0 +1,14 @@
+[project]
+name = "backend"
+version = "0.0.0dev0"
+description = "Example backend"
+authors = [
+    { name = "Tom McLean"}
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"]}
