@@ -1,45 +1,28 @@
 services:
-  postgres:
-    image: postgres:13
+  db:
+    image: postgres:15-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: dbname
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - backend_network
-
-  backend: 
+      - db_data:/var/lib/postgresql/data
+    
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    command: ["sh", "-c", "alembic upgrade head && uvicorn --host 0.0.0.0 --port 8000 app.main:app"]
+    volumes:
+      - ./backend:/app
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql://user:pass@postgres/dbname
     depends_on:
-      - postgres
-      - alembic
-
-  alembic:
-    build:
-      context: .
-      dockerfile: ./alembic/Dockerfile
-    command: alembic upgrade head
-    depends_on:
-      - postgres
+      - db
     environment:
-      DATABASE_URL: postgresql://user:pass@postgres/dbname
-    networks:
-      - backend_network
-
-networks:
-  backend_network:
-    driver: bridge
-
+      - DATABASE_URL=postgresql://postgres:postgress@db/postgres
+  
 volumes:
-  postgres_data:
-    driver: local
+  db_data:
