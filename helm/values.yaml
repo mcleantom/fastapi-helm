@@ -1,0 +1,20 @@
+postgresql:
+  enabled: true
+  auth:
+    username: postgres
+    password: postgres
+    database: db
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+
+frontend:
+  image:
+    repository: mcleantom/fastapi-helm-frontend
+    tag: latest
+
+backend:
+  image:
+    repository: mcleantom/fastapi-helm-backend
+    tag: latest

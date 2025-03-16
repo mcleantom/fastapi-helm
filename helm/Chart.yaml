@@ -1,0 +1,9 @@
+apiVersion: v2
+name: fastapi-helm
+version: 0.1.0
+description: A Helm chart for deploying an example full stack app with FastAPI, React and Postgres
+type: application
+dependencies:
+  - name: postgresql
+    version: 12.1.9
+    repository: https://charts.bitnami.com/bitnami
