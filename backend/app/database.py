@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://postgres:postgres@db/postgres") # Use 'db' as the hostname for the PostgreSQL service
+SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/postgres") # Use 'db' as the hostname for the PostgreSQL service
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
