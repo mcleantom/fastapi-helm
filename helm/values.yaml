@@ -8,6 +8,9 @@ postgresql:
     persistence:
       enabled: true
       size: 1Gi
+  primary:
+    nodeSelector:
+      kubernetes.io/arch: arm64
 
 frontend:
   image:

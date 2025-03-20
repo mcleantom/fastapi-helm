@@ -5,5 +5,5 @@ description: A Helm chart for deploying an example full stack app with FastAPI, 
 type: application
 dependencies:
   - name: postgresql
-    version: 12.1.9
+    version: 16.5.5
     repository: https://charts.bitnami.com/bitnami
