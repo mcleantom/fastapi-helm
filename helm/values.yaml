@@ -21,3 +21,5 @@ backend:
   image:
     repository: mcleantom/fastapi-helm-backend
     tag: latest
+  env:
+    DATABSE_URL: "postgres://postgress:postgress@test-postgresql:5432/db"
