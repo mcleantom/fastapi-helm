@@ -16,10 +16,12 @@ frontend:
   image:
     repository: mcleantom/fastapi-helm-frontend
     tag: latest
+  imagePullPolicy: Always
 
 backend:
   image:
     repository: mcleantom/fastapi-helm-backend
     tag: latest
+  imagePullPolicy: Always
   env:
-    DATABSE_URL: "postgres://postgress:postgress@test-postgresql:5432/db"
+    DATABASE_URL: "postgresql://postgres:postgres@test-postgresql:5432/db"
